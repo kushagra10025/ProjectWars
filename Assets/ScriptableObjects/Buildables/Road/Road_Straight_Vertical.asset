@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _category: 2
   _tileBase: {fileID: 11400000, guid: c4d493b66dfdd554cafda9ad25eed796, type: 2}
-  _placeType: 1
+  _placeType: 2

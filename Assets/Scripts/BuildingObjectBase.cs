@@ -11,7 +11,10 @@ public enum ECategory
 public enum EPlaceType
 {
     Single,
-    Line,
+    Line_Horizontal,
+    Line_Vertical,
+    Line_Freeform,
+    Line_Diagonal,
     Rectangle
 }
 

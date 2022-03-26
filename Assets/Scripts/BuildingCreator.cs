@@ -61,11 +61,16 @@ public class BuildingCreator : MonoBehaviour
     public void OnLeftMouseActionEvent(bool value)
     {
         if (_isOverUI) return;
-        if (_selectedBuildingObject != null)
+        if (_selectedBuildingObject == null) return;
+        if (value)
         {
             // Handle Hold Start Grid Position on First Left Click
             _holdStartGridPosition = _currentGridPosition;
             HandleDrawing();
+        }
+        else
+        {
+            HandleReleaseDraw();
         }
     }
 
@@ -115,8 +120,10 @@ public class BuildingCreator : MonoBehaviour
         {
             switch (_selectedBuildingObject.PlaceType)
             {
-                case EPlaceType.Line:
-                    break;
+                case EPlaceType.Line_Diagonal:
+                case EPlaceType.Line_Freeform:
+                case EPlaceType.Line_Vertical:
+                case EPlaceType.Line_Horizontal:
                 case EPlaceType.Rectangle:
                     DrawBounds(_defaultTilemap);
                     _previewTilemap.ClearAllTiles();
@@ -134,7 +141,17 @@ public class BuildingCreator : MonoBehaviour
                 case EPlaceType.Single: 
                     DrawTile();
                     break;
-                case EPlaceType.Line:
+                case EPlaceType.Line_Diagonal:
+                    LineRenderer(EPlaceType.Line_Diagonal);
+                    break;
+                case EPlaceType.Line_Freeform:
+                    LineRenderer(EPlaceType.Line_Freeform);
+                    break;
+                case EPlaceType.Line_Vertical:
+                    LineRenderer(EPlaceType.Line_Vertical);
+                    break;
+                case EPlaceType.Line_Horizontal:
+                    LineRenderer(EPlaceType.Line_Horizontal);
                     break;
                 case EPlaceType.Rectangle:
                     RectangleRenderer();
@@ -142,6 +159,52 @@ public class BuildingCreator : MonoBehaviour
                 // default:
             }
         }
+    }
+
+    private void LineRenderer(EPlaceType _placeType)
+    {
+        _previewTilemap.ClearAllTiles();
+
+        float diffX = Mathf.Abs(_currentGridPosition.x - _holdStartGridPosition.x);
+        float diffY = Mathf.Abs(_currentGridPosition.y - _holdStartGridPosition.y);
+
+        // Try to Swap Line Drawing for DDA or Bresenham or some Line Drawing Algorithm
+        switch (_placeType)
+        {
+            case EPlaceType.Line_Horizontal:
+                _dragRectangleBounds.xMin = Mathf.Min(_currentGridPosition.x, _holdStartGridPosition.x);
+                _dragRectangleBounds.xMax = Mathf.Max(_currentGridPosition.x, _holdStartGridPosition.x);
+                _dragRectangleBounds.yMin = _holdStartGridPosition.y;
+                _dragRectangleBounds.yMax = _holdStartGridPosition.y;
+                break;
+            case EPlaceType.Line_Vertical:
+                _dragRectangleBounds.xMin = _holdStartGridPosition.x;
+                _dragRectangleBounds.xMax = _holdStartGridPosition.x;
+                _dragRectangleBounds.yMin = Mathf.Min(_currentGridPosition.y, _holdStartGridPosition.y);
+                _dragRectangleBounds.yMax = Mathf.Max(_currentGridPosition.y, _holdStartGridPosition.y);
+                break;
+            case EPlaceType.Line_Freeform:
+                bool _isLineHorizontal = diffX >= diffY; // Also Check EPlaceType for Horizontal and Vertical
+                if (_isLineHorizontal)
+                {
+                    _dragRectangleBounds.xMin = Mathf.Min(_currentGridPosition.x, _holdStartGridPosition.x);
+                    _dragRectangleBounds.xMax = Mathf.Max(_currentGridPosition.x, _holdStartGridPosition.x);
+                    _dragRectangleBounds.yMin = _holdStartGridPosition.y;
+                    _dragRectangleBounds.yMax = _holdStartGridPosition.y;
+                }
+                else
+                {
+                    _dragRectangleBounds.xMin = _holdStartGridPosition.x;
+                    _dragRectangleBounds.xMax = _holdStartGridPosition.x;
+                    _dragRectangleBounds.yMin = Mathf.Min(_currentGridPosition.y, _holdStartGridPosition.y);
+                    _dragRectangleBounds.yMax = Mathf.Max(_currentGridPosition.y, _holdStartGridPosition.y);
+                }
+                break;
+            case EPlaceType.Line_Diagonal:
+                break;
+        }
+
+        DrawBounds(_previewTilemap);
     }
 
     private void RectangleRenderer()
@@ -171,4 +234,6 @@ public class BuildingCreator : MonoBehaviour
     {
         _defaultTilemap.SetTile(_currentGridPosition, _tileBase);
     }
+    
+    // TODO Stress test Preview mode and if problem persists refer Internet for solve
 }
