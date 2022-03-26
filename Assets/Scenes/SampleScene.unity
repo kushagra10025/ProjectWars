@@ -21893,6 +21893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574985045}
   - component: {fileID: 574985046}
+  - component: {fileID: 574985047}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -21955,6 +21956,23 @@ MonoBehaviour:
     _useConstant: 0
     _constantValue: 0
     _variable: {fileID: 11400000, guid: cde393e57f63ca849b70d1f81ff1a781, type: 2}
+--- !u!114 &574985047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574985044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c547bf18c9ffc7a458db77fb2be5f06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _categoriesToCreateTilemap:
+  - {fileID: 11400000, guid: 2d486c70739d29e4882f82ba7cf59ec2, type: 2}
+  - {fileID: 11400000, guid: 3bd7ed2651a73114cb0831beb12f7166, type: 2}
+  - {fileID: 11400000, guid: fd27d858ee5b7ad428e8ba4e1681d804, type: 2}
+  _gridTransform: {fileID: 639534592}
 --- !u!1 &576420823
 GameObject:
   m_ObjectHideFlags: 0
@@ -25040,7 +25058,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

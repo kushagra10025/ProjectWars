@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff9e8abf8790934187f7932950711c2, type: 3}
   m_Name: Road_Corner_Bottom_Left
   m_EditorClassIdentifier: 
-  _category: 2
+  _category: {fileID: 11400000, guid: 3bd7ed2651a73114cb0831beb12f7166, type: 2}
   _tileBase: {fileID: 11400000, guid: 996732993a1b34247b9eae37919b309d, type: 2}
+  _placeType: 1

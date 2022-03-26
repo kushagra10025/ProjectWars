@@ -9,6 +9,18 @@ public class BuildingCreator : MonoBehaviour
     [SerializeField] private Vector2Reference _mousePosition;
     [SerializeField] private Tilemap _previewTilemap;
     [SerializeField] private Tilemap _defaultTilemap;
+
+    private Tilemap TilemapToDrawOn
+    {
+        get
+        {
+            if (_selectedBuildingObject != null && _selectedBuildingObject.Category != null && _selectedBuildingObject.Category.Tilemap != null)
+            {
+                return _selectedBuildingObject.Category.Tilemap;
+            }
+            return _defaultTilemap;
+        }
+    }
     
     private BuildingObjectBase _selectedBuildingObject;
     private Camera _camera;
@@ -120,12 +132,12 @@ public class BuildingCreator : MonoBehaviour
         {
             switch (_selectedBuildingObject.PlaceType)
             {
-                case EPlaceType.Line_Diagonal:
-                case EPlaceType.Line_Freeform:
-                case EPlaceType.Line_Vertical:
-                case EPlaceType.Line_Horizontal:
+                case EPlaceType.LineDiagonal:
+                case EPlaceType.LineFreeform:
+                case EPlaceType.LineVertical:
+                case EPlaceType.LineHorizontal:
                 case EPlaceType.Rectangle:
-                    DrawBounds(_defaultTilemap);
+                    DrawBounds(TilemapToDrawOn);
                     _previewTilemap.ClearAllTiles();
                     break;
             }
@@ -141,17 +153,17 @@ public class BuildingCreator : MonoBehaviour
                 case EPlaceType.Single: 
                     DrawTile();
                     break;
-                case EPlaceType.Line_Diagonal:
-                    LineRenderer(EPlaceType.Line_Diagonal);
+                case EPlaceType.LineDiagonal:
+                    LineRenderer(EPlaceType.LineDiagonal);
                     break;
-                case EPlaceType.Line_Freeform:
-                    LineRenderer(EPlaceType.Line_Freeform);
+                case EPlaceType.LineFreeform:
+                    LineRenderer(EPlaceType.LineFreeform);
                     break;
-                case EPlaceType.Line_Vertical:
-                    LineRenderer(EPlaceType.Line_Vertical);
+                case EPlaceType.LineVertical:
+                    LineRenderer(EPlaceType.LineVertical);
                     break;
-                case EPlaceType.Line_Horizontal:
-                    LineRenderer(EPlaceType.Line_Horizontal);
+                case EPlaceType.LineHorizontal:
+                    LineRenderer(EPlaceType.LineHorizontal);
                     break;
                 case EPlaceType.Rectangle:
                     RectangleRenderer();
@@ -171,19 +183,19 @@ public class BuildingCreator : MonoBehaviour
         // Try to Swap Line Drawing for DDA or Bresenham or some Line Drawing Algorithm
         switch (_placeType)
         {
-            case EPlaceType.Line_Horizontal:
+            case EPlaceType.LineHorizontal:
                 _dragRectangleBounds.xMin = Mathf.Min(_currentGridPosition.x, _holdStartGridPosition.x);
                 _dragRectangleBounds.xMax = Mathf.Max(_currentGridPosition.x, _holdStartGridPosition.x);
                 _dragRectangleBounds.yMin = _holdStartGridPosition.y;
                 _dragRectangleBounds.yMax = _holdStartGridPosition.y;
                 break;
-            case EPlaceType.Line_Vertical:
+            case EPlaceType.LineVertical:
                 _dragRectangleBounds.xMin = _holdStartGridPosition.x;
                 _dragRectangleBounds.xMax = _holdStartGridPosition.x;
                 _dragRectangleBounds.yMin = Mathf.Min(_currentGridPosition.y, _holdStartGridPosition.y);
                 _dragRectangleBounds.yMax = Mathf.Max(_currentGridPosition.y, _holdStartGridPosition.y);
                 break;
-            case EPlaceType.Line_Freeform:
+            case EPlaceType.LineFreeform:
                 bool _isLineHorizontal = diffX >= diffY; // Also Check EPlaceType for Horizontal and Vertical
                 if (_isLineHorizontal)
                 {
@@ -200,7 +212,7 @@ public class BuildingCreator : MonoBehaviour
                     _dragRectangleBounds.yMax = Mathf.Max(_currentGridPosition.y, _holdStartGridPosition.y);
                 }
                 break;
-            case EPlaceType.Line_Diagonal:
+            case EPlaceType.LineDiagonal:
                 break;
         }
 
@@ -232,7 +244,7 @@ public class BuildingCreator : MonoBehaviour
 
     private void DrawTile()
     {
-        _defaultTilemap.SetTile(_currentGridPosition, _tileBase);
+        TilemapToDrawOn.SetTile(_currentGridPosition, _tileBase);
     }
     
     // TODO Stress test Preview mode and if problem persists refer Internet for solve

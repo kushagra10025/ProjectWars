@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff9e8abf8790934187f7932950711c2, type: 3}
-  m_Name: Road_Corner_Top_Right
+  m_Script: {fileID: 11500000, guid: 10ca6995180d15b469fc387b1ead94b9, type: 3}
+  m_Name: BCGround
   m_EditorClassIdentifier: 
-  _category: {fileID: 11400000, guid: 3bd7ed2651a73114cb0831beb12f7166, type: 2}
-  _tileBase: {fileID: 11400000, guid: d1fe798f3a14a924294aa334101a1427, type: 2}
-  _placeType: 1
+  _placeType: 6
+  _sortingOrder: 2

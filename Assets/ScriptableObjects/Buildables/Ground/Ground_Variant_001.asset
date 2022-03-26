@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff9e8abf8790934187f7932950711c2, type: 3}
   m_Name: Ground_Variant_001
   m_EditorClassIdentifier: 
-  _category: 0
+  _category: {fileID: 11400000, guid: 2d486c70739d29e4882f82ba7cf59ec2, type: 2}
   _tileBase: {fileID: 11400000, guid: aaecb53c07ca5bb419caa9cb7053be92, type: 2}
-  _placeType: 5
+  _placeType: 0
