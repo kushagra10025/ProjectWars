@@ -1,6 +1,7 @@
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class InputController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class InputController : MonoBehaviour
     [SerializeField] private Vector2Reference _mousePosition;
     [SerializeField] private BoolReference _leftMouseInput;
     [SerializeField] private BoolReference _rightMouseInput;
+    [SerializeField] private BoolReference _leftMouseHoldInput;
+    [SerializeField] private BoolReference _rightMouseHoldInput;
 
     private void OnEnable()
     {
@@ -24,9 +27,10 @@ public class InputController : MonoBehaviour
         _playerInputControls.Gameplay.MousePosition.performed += OnUpdateMousePosition;
         _playerInputControls.Gameplay.MousePosition.canceled += OnUpdateMousePosition;
         
+        _playerInputControls.Gameplay.MouseLeftClick.started += OnLeftMouseClick;
         _playerInputControls.Gameplay.MouseLeftClick.performed += OnLeftMouseClick;
-        _playerInputControls.Gameplay.MouseRightClick.performed += OnRightMouseClick;
         _playerInputControls.Gameplay.MouseLeftClick.canceled += OnLeftMouseClick;
+        _playerInputControls.Gameplay.MouseRightClick.performed += OnRightMouseClick;
         _playerInputControls.Gameplay.MouseRightClick.canceled += OnRightMouseClick;
     }
     
@@ -38,9 +42,10 @@ public class InputController : MonoBehaviour
         _playerInputControls.Gameplay.MousePosition.performed -= OnUpdateMousePosition;
         _playerInputControls.Gameplay.MousePosition.canceled -= OnUpdateMousePosition;
         
+        _playerInputControls.Gameplay.MouseLeftClick.started -= OnLeftMouseClick;
         _playerInputControls.Gameplay.MouseLeftClick.performed -= OnLeftMouseClick;
-        _playerInputControls.Gameplay.MouseRightClick.performed -= OnRightMouseClick;
         _playerInputControls.Gameplay.MouseLeftClick.canceled -= OnLeftMouseClick;
+        _playerInputControls.Gameplay.MouseRightClick.performed -= OnRightMouseClick;
         _playerInputControls.Gameplay.MouseRightClick.canceled -= OnRightMouseClick;
 
         _playerInputControls.Disable();
@@ -65,6 +70,7 @@ public class InputController : MonoBehaviour
     
     private void OnRightMouseClick(InputAction.CallbackContext ctx)
     {
+        // _rightMouseHoldInput is currently not in use
         if (ctx.performed)
         {
             _rightMouseInput.Value = true;
@@ -74,16 +80,38 @@ public class InputController : MonoBehaviour
             _rightMouseInput.Value = false;
         }
     }
-
+    
     private void OnLeftMouseClick(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        switch (ctx.phase)
         {
-            _leftMouseInput.Value = true;
-        }
-        else if (ctx.canceled)
-        {
-            _leftMouseInput.Value = false;
+            case InputActionPhase.Started:
+                switch (ctx.interaction)
+                {
+                    case TapInteraction:
+                        // Tap Started
+                        _leftMouseInput.Value = true;
+                        break;
+                    case SlowTapInteraction:
+                        // Hold Started
+                        _leftMouseHoldInput.Value = true;
+                        break;
+                }
+                break;
+            case InputActionPhase.Performed:
+            case InputActionPhase.Canceled:
+                switch (ctx.interaction)
+                {
+                    case TapInteraction:
+                        // Tap Performed / Ended
+                        _leftMouseInput.Value = false;
+                        break;
+                    case SlowTapInteraction:
+                        // Hold Performed / Ended
+                        _leftMouseHoldInput.Value = false;
+                        break;
+                }
+                break;
         }
     }
 }
