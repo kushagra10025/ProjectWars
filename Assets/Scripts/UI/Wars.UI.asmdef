@@ -1,0 +1,19 @@
+{
+    "name": "Wars.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cdbc21c32f7b4c04bb962e95bea8f1a8",
+        "GUID:63ebd60d5c68886498ecfee04b5d6a12",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:33d8b622191c17b4c8c20235d88f25f8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

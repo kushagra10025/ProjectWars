@@ -1,0 +1,17 @@
+{
+    "name": "Wars.BuildingSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:63ebd60d5c68886498ecfee04b5d6a12",
+        "GUID:cdbc21c32f7b4c04bb962e95bea8f1a8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
