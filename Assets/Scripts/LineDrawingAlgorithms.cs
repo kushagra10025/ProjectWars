@@ -12,7 +12,7 @@ public enum LineDrawingAlgorithm
 
 public class LineDrawingAlgorithms : MonoBehaviour
 {
-    [SerializeField] private LineDrawingAlgorithm _algorithm = LineDrawingAlgorithm.DDA;
+    [Tooltip("Bresenham is Experimental")][SerializeField] private LineDrawingAlgorithm _algorithm = LineDrawingAlgorithm.DDA;
     [SerializeField] private Tilemap _buildTilemap;
     [SerializeField] private TileBase _tile;
     [SerializeField] private Transform _startPoint;
@@ -70,7 +70,7 @@ public class LineDrawingAlgorithms : MonoBehaviour
                 DrawTile(x, y);
                 p = p + 2 * Delta.y;
             }
-
+        
             x = x + 1;
         }
     }

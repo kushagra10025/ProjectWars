@@ -21973,6 +21973,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3bd7ed2651a73114cb0831beb12f7166, type: 2}
   - {fileID: 11400000, guid: fd27d858ee5b7ad428e8ba4e1681d804, type: 2}
   _gridTransform: {fileID: 639534592}
+  currentLevelName: Default_Level
+  savesDirectory: saves
 --- !u!1 &576420823
 GameObject:
   m_ObjectHideFlags: 0
@@ -22722,7 +22724,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 687787183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 574985047}
+        m_TargetAssemblyTypeName: TilemapsInitializer, Wars.BuildingSystem
+        m_MethodName: SaveMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &687787183
 MonoBehaviour:
   m_ObjectHideFlags: 0
